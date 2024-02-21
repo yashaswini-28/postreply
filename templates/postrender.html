@@ -1,64 +1,43 @@
 <textarea id="post"></textarea>
 <input type="submit" id="ajaxpost" value="submit">
-{% for p in posts %}
-		<li>{{p.post}}</li>
-	{% endfor %}
-<textarea id="post"></textarea>
-<input type="submit" id="ajaxpost" value="submit">
 
 {% for p in posts %}
-		<li>{{p.post}}</li>
-		{% for reply in p.reply %}
+	<li>{{p.post}}</li>
+{% endfor %}
+
+{% for p in posts %}
+	<li>{{p.post}}</li>
+	{% for reply in p.reply %}
 		<ul><li>{{reply.reply}}</li></ul>
-		{% endfor %}
-		<textarea class="reply{{p.id}}"></textarea>
+	{% endfor %}
+	<textarea class="reply{{p.id}}"></textarea>
 	<input type="submit" class="ajaxreply" value="submit"><input  type="hidden" value="{{p.id}}">
 {% endfor %}
+
+
 <script>
-$(document).ready(function(){
-	
-		function callme()
-		{
-		alert();
-		  $.ajax({
-		  url: "/getdata/",
-		  type: "GET",
-		  dataType: 'html',
-		  success: function (html) {
-				
-				$('.append').html(html);
-				  },
-			error: function () {
-	
+	$(document).ready(function(){
+		//add the ajax to post datas 
+		$('#ajaxpost').click(function(){
+			post = $('#post').val();
+			data = {'post_data': post}
+
+	    		$.ajax({
+				url: '/add/',
+				type: 'POST',
+				data: data,
+				success: function(response){
+					if (response=='True'){
+						alert('Post saved');
+					}
 				}
-		  });
-		}
-<script>
-$(document).ready(function(){
-
-//add the ajax to post datas 
-	$('#ajaxpost').click(function(){
-		post = $('#post').val();
-
-		data = {'post_data': post}
-
-	    $.ajax({
-			url: '/add/',
-			type: 'POST',
-			data: data,
-			success: function(response){
-				if (response=='True'){
-					alert('Post saved');
-				}
-			}
+			});
 		});
+		//end of ajax POST
 	});
-//end of ajax POST
-});
-</script>
 
-//add the ajax to post datas 
-$('#ajaxpost').click(function(){
+	//add the ajax to post datas 
+	$('#ajaxpost').click(function(){
 		post = $('#post').val();
 
 		data = {'post_data': post}
@@ -75,10 +54,9 @@ $('#ajaxpost').click(function(){
 			}
 		});
 	});
-//end of ajax POST
+	//end of ajax POST
 
-
-/ajax to add the reply
+	//ajax to add the reply
 	$('.ajaxreply').click(function(){
 		post_id = $(this).next().val();
 		alert(post_id);
@@ -101,9 +79,14 @@ $('#ajaxpost').click(function(){
 			}
 		});
 	});
-//end of ajax
-});
 </script>
+
+
+
+
+
+
+
 
 
 <div class="container">
@@ -202,6 +185,3 @@ $('#ajaxpost').click(function(){
             </div>
           </div>
 	{% endfor %}
-              <script>
-
-
