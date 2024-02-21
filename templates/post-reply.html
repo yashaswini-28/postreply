@@ -1,56 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
+	<div class="append"></div>
 
-<div class="append"></div>
-
-
-<script>
-
-$(document).ready(function(){
-
-//add the ajax to get the post datas in the class append
-	$.ajax({
-		url: '/getdata/',
-		dataType: 'html',
-		type: 'GET',
-		success: function(html){
-			$('.append').html(html);
-		}
-	});
-
-//end of ajax GET
-
-});
-
-</script>
-{% endblock %}
-
-<div class="append"></div
-   
-
-<script>
-$(document).ready(function() {
-
-$.ajax({
-	url: "/getdata/",
-	type: "GET",
-	dataType: 'html',
-	success: function (html) {
-				
-        $('.append').html(html);
-					},
-		error: function () {
-
+	<script>
+		$(document).ready(function(){
+			//add the ajax to get the post datas in the class append
+			$.ajax({
+				url: '/getdata/',
+				dataType: 'html',
+				type: 'GET',
+				success: function(html){
+					$('.append').html(html);
 				}
-	});
-});
-</script>
-
-
-
-
-
-
-
-
-
+			});
+			//end of ajax GET
+		});
+	</script>
+{% endblock %}
